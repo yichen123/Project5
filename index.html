@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="css/style.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJKv3XGGfVwPQchBJ7W86S_7vgN7ZIw5c">
   </script>
   <script type="text/javascript" src="js/knockout-3.3.0.js"></script>
@@ -13,6 +14,16 @@
 
 <body>
   <div id="map">
+  </div>
+
+  <div id="searchBar">
+
+  <p>Search: <input data-bind="value: search"></p>
+
+  </div>
+
+  <div id="markerList">
+
   </div>
 
 </body>
