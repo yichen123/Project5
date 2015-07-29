@@ -19,11 +19,20 @@
 
   <div id="searchBar">
 
-  <p>Search: <input data-bind="value: search"></p>
+  <p>Search: <input data-bind="value: searchInfo"></p>
 
   </div>
 
-  <div id="markerList">
+  <div class="row-3">
+    <table id="searchResult">
+      <tbody data-bind="foreach: searchResult">
+        <tr>
+          <p data-bind="text: $data"></p>
+        </tr>
+      </tbody>
+
+    </table>
+
 
   </div>
 
