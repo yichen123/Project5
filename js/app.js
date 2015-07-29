@@ -6,16 +6,19 @@ var initialStatus = {
     },
     zoom: 14,
     keyword: 'hotpot',
-    limit: '10'
+    limit: '10',
+    intent: 'browser',
+    radius: 2000
 };
 
-var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?client_id=CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M&client_secret=UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO&v=20130815&ll=' + initialStatus.center.lat + ',' + initialStatus.center.lng + '&query=' + initialStatus.keyword + '&limit=' + initialStatus.limit;
+var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?client_id=CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M&client_secret=UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO&v=20130815&ll=' + initialStatus.center.lat + ',' + initialStatus.center.lng + '&query=' + initialStatus.keyword + '&limit=' + initialStatus.limit + '&intent=' + initialStatus.intent + '&radius=' + initialStatus.radius;
 
 // array for store data from foursquare
 var apiResult = [];
 
 // array for store markers
 var markers = [];
+
 //classes
 
 
@@ -24,17 +27,11 @@ var markers = [];
 function modelView() {
     var self = this;
     var map = init();
-    var marker = new google.maps.Marker({
-        name: 'test1',
-        position: {
-            lat: 40.71,
-            lng: -73.995
-        },
-    });
-    marker.setMap(map);
     fsInit(map);
     self.map = ko.observable(map);
     self.search = ko.observable();
+
+
 
 }
 
@@ -49,13 +46,10 @@ function fsInit(map) {
                 'lng': place.location.lng
             }
             apiResult.push(marker);
-            console.log(spots[i]);
-            console.log(marker);
         }
-        console.log(apiResult);
         for (var i = 0, len = apiResult.length; i < len; i++) {
             var that = apiResult[i];
-            marker[i] = new google.maps.Marker({
+            markers[i] = new google.maps.Marker({
                 name: that.name,
                 position: {
                     lat: that.lat,
@@ -70,10 +64,9 @@ function fsInit(map) {
 
 function init() {
     var map = new google.maps.Map(document.getElementById('map'), initialStatus);
-
+    return map;
 }
 
 
 //google.maps.event.addDomListener(window, 'load', fsInit);
 ko.applyBindings(modelView);
-console.log(apiResult);
