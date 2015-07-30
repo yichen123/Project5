@@ -63,11 +63,11 @@ var apiResult = [];
 // array for store markers
 var markers = [];
 
-// marker classes, data is the formlized data from foursquare
+// marker classes
 var Marker = function(data, map) {
-    this.name = data.name,
-    this.lat = data.lat,
-    this.lng = data.lng,
+    this.name = data.name;
+    this.lat = data.lat;
+    this.lng = data.lng;
     this.marker = new google.maps.Marker({
         name: this.name,
         position: {
@@ -79,28 +79,66 @@ var Marker = function(data, map) {
 };
 
 
+// helper functions
+var filter = function(keyword) {
+    if (keyword == '' || keyword == null) {
+        return markers;
+    }
+    else {
+        return [markers[2]];
+    }
+}
+
+var isIn = function(item, array) {
+    for (var i = 0, len = array.length; i < len; i++) {
+        if (item == array[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 //modelView
 
 function modelView() {
     var self = this;
     var map = init();
-    self.map = ko.observable(map);
+    initMarker(map);
     self.searchInfo = ko.observable(); // input search words
-    self.searchResult = ko.observableArray(); // store searched result
-    for (var i = 0, len = stores.length; i < len; i++) {
-        var marker = new Marker(stores[i], map);
-        markers.push(marker);
-    }
-    console.log(searchInfo());
+    console.log(self.searchInfo());
+    self.searchResult = ko.computed(function() {
+        var result = filter(self.searchInfo());
+        for(var i = 0, len1 = markers.length; i < len1; i++) {
+            if (isIn(markers[i], result)) {
+                console.log(1);
+                markers[i].marker.setMap(map);
+            } else {
+                console.log(0);
+                markers[i].marker.setMap(null);
+            }
+        }
+        console.log(result);
+        return result;
+
+    }); // store searched result
+
+    //operations
 }
 
 // initialize google map
 function init() {
     var map = new google.maps.Map(document.getElementById('map'), initialStatus);
     return map;
+}
 
+// initialize markers on the map
+function initMarker(map) {
+    for (var i = 0, len = stores.length; i < len; i++) {
+        var marker = new Marker(stores[i], map);
+        markers.push(marker);
+    }
 }
 
 
-    //google.maps.event.addDomListener(window, 'load', fsInit);
-    ko.applyBindings(modelView);
+//google.maps.event.addDomListener(window, 'load', fsInit);
+ko.applyBindings(new modelView);

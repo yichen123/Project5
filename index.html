@@ -19,15 +19,15 @@
 
   <div id="searchBar">
 
-  <p>Search: <input data-bind="value: searchInfo"></p>
-
+  <p>Search: <input data-bind="textInput: searchInfo" /></p>
+  <p data-bind="text: searchInfo"></p>
   </div>
 
   <div class="row-3">
     <table id="searchResult">
       <tbody data-bind="foreach: searchResult">
         <tr>
-          <p data-bind="text: $data"></p>
+          <td data-bind="text: $data.name"></td>
         </tr>
       </tbody>
 
