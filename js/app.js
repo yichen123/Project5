@@ -11,7 +11,7 @@ var initialStatus = {
     radius: 2000
 };
 
-// store info
+// restuants info
 var stores = [{
     name: 'Hakata Ton Ton',
     id: '4a0f01acf964a52011761fe3',
@@ -55,10 +55,7 @@ var stores = [{
 }];
 
 // url for applying foursquare api
-//var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?client_id=CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M&client_secret=UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO&v=20130815&ll=' + initialStatus.center.lat + ',' + initialStatus.center.lng + '&query=' + initialStatus.keyword + '&limit=' + initialStatus.limit + '&intent=' + initialStatus.intent + '&radius=' + initialStatus.radius;
-
-// array for store data from foursquare
-var apiResult = [];
+//var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?client_id=CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M&client_secret=UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO
 
 // array for store markers
 var markers = [];
@@ -80,15 +77,25 @@ var Marker = function(data, map) {
 
 
 // helper functions
+// return a list of stores that contains the keyword
 var filter = function(keyword) {
     if (keyword == '' || keyword == null) {
         return markers;
     }
     else {
-        return [markers[2]];
+        var list = [];
+        var lowerCaseKeyword = keyword.toLowerCase();
+        for (var i = 0, len = markers.length; i < len; i ++) {
+            lowerCaseName = markers[i].name.toLowerCase();
+            if(lowerCaseName.search(lowerCaseKeyword) != -1) {
+                list.push(markers[i]);
+            }
+        }
+        return list;
     }
 }
 
+// return if the item is in array
 var isIn = function(item, array) {
     for (var i = 0, len = array.length; i < len; i++) {
         if (item == array[i]) {
@@ -99,30 +106,28 @@ var isIn = function(item, array) {
 }
 
 //modelView
-
 function modelView() {
     var self = this;
     var map = init();
     initMarker(map);
+
     self.searchInfo = ko.observable(); // input search words
-    console.log(self.searchInfo());
+
+    // save and update the page with the searched result
     self.searchResult = ko.computed(function() {
         var result = filter(self.searchInfo());
         for(var i = 0, len1 = markers.length; i < len1; i++) {
             if (isIn(markers[i], result)) {
-                console.log(1);
                 markers[i].marker.setMap(map);
             } else {
-                console.log(0);
                 markers[i].marker.setMap(null);
             }
         }
-        console.log(result);
         return result;
-
-    }); // store searched result
+    });
 
     //operations
+
 }
 
 // initialize google map
