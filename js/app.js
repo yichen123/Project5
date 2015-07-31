@@ -57,7 +57,7 @@ var stores = [{
 // url for applying foursquare api
 //var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?client_id=CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M&client_secret=UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO
 
-// array for store markers
+// array of default markers
 var markers = [];
 
 // marker classes
@@ -94,7 +94,6 @@ var filter = function(keyword) {
         return list;
     }
 }
-
 // return if the item is in array
 var isIn = function(item, array) {
     for (var i = 0, len = array.length; i < len; i++) {
@@ -117,6 +116,7 @@ function modelView() {
     self.searchResult = ko.computed(function() {
         var result = filter(self.searchInfo());
         for(var i = 0, len1 = markers.length; i < len1; i++) {
+            // add marker[i] to the map if markers[i] is in searched result, or remove it from the map otherwise
             if (isIn(markers[i], result)) {
                 markers[i].marker.setMap(map);
             } else {
@@ -136,7 +136,7 @@ function init() {
     return map;
 }
 
-// initialize markers on the map
+// initialize markers for model
 function initMarker(map) {
     for (var i = 0, len = stores.length; i < len; i++) {
         var marker = new Marker(stores[i], map);
