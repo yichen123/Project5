@@ -61,7 +61,7 @@ var stores = [{
 var markers = [];
 
 // marker classes
-var Marker = function(data, map) {
+var Marker = function(data, map, infoWindow) {
     this.name = data.name;
     this.lat = data.lat;
     this.lng = data.lng;
@@ -72,6 +72,9 @@ var Marker = function(data, map) {
             lng: this.lng
         },
         map: map
+    })
+    google.maps.event.addListener(this.marker, 'click', function() {
+        infoWindow.open(map, this);
     });
 };
 
@@ -108,7 +111,8 @@ var isIn = function(item, array) {
 function modelView() {
     var self = this;
     var map = init();
-    initMarker(map);
+    var infoWindow = initInfoWindow();
+    initMarker(map, infoWindow);
 
     self.searchInfo = ko.observable(); // input search words
 
@@ -128,6 +132,8 @@ function modelView() {
 
     //operations
 
+
+
 }
 
 // initialize google map
@@ -136,13 +142,21 @@ function init() {
     return map;
 }
 
+// initialize infoWindow
+function initInfoWindow() {
+    var info = new google.maps.InfoWindow({
+        content: 'hi!'
+    })
+    return info;
+}
 // initialize markers for model
-function initMarker(map) {
+function initMarker(map, infoWindow) {
     for (var i = 0, len = stores.length; i < len; i++) {
-        var marker = new Marker(stores[i], map);
+        var marker = new Marker(stores[i], map, infoWindow);
         markers.push(marker);
     }
 }
+
 
 
 //google.maps.event.addDomListener(window, 'load', fsInit);
