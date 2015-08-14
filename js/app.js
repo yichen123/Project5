@@ -73,9 +73,9 @@ var Marker = function(data, map, infoWindow) {
         },
         map: map
     })
-    google.maps.event.addListener(this.marker, 'click', function() {
+    google.maps.event.addListener(this.marker, 'click', (function() {
         infoWindow.open(map, this);
-    });
+    }));
 };
 
 
@@ -113,7 +113,7 @@ function modelView() {
     var map = init();
     var infoWindow = initInfoWindow();
     initMarker(map, infoWindow);
-
+    console.log(infoWindow);
     self.searchInfo = ko.observable(); // input search words
 
     // save and update the page with the searched result
