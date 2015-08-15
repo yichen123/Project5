@@ -1,4 +1,5 @@
 // data
+// map info
 var initialStatus = {
     center: {
         lat: 40.720586,
@@ -10,7 +11,13 @@ var initialStatus = {
     intent: 'browser',
     radius: 2000
 };
-
+//api info
+var apiData = {
+    foursquareURL: 'https://api.foursquare.com/v2/venues/',
+    clientID: 'CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M',
+    clientSecret: 'UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO',
+    apiVersion: '20150815'
+}
 // restuants info
 var stores = [{
     name: 'Hakata Ton Ton',
@@ -54,8 +61,6 @@ var stores = [{
     lng: -74.006888,
 }];
 
-// url for applying foursquare api
-//var fourSquareURL = 'https://api.foursquare.com/v2/venues/search?client_id=CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M&client_secret=UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO
 
 // array of default markers
 var markers = [];
@@ -110,19 +115,19 @@ var isIn = function(item, array) {
 
 // marker clicked
 var markerClicked = function(infoWindow, map, marker) {
-    var apiURL = 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M&client_secret=UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO&v=20150815';
+    var apiURL = apiData.foursquareURL + marker.id + '?client_id=' + apiData.clientID + '&client_secret=' + apiData.clientSecret + '&v=' + apiData.apiVersion;
+    // update InfoWindow with selected marker
     $.getJSON(apiURL, function(result) {
         var venueInfo = result.response.venue;
-        infoWindow.setContent(venueInfo.name);
+        console.log(venueInfo);
+        var content = '<div id=\'InfoWindow\'><h3>' + venueInfo.name + '</h3><h2 style=\'color:#' + venueInfo.ratingColor + '\'>' + venueInfo.rating + '</h2><p>ADDRESS: ' + venueInfo.location.formattedAddress[0] + '.</p> <p>CONTACT: ' + venueInfo.contact.formattedPhone + '.</p></div>';
+        console.log(content);
+        infoWindow.setContent(content);
         infoWindow.open(map, marker);
     });
 }
 
-// get location infomation for infoWindow from foursquare
-var getInfo = function(id) {
 
-
-};
 
 //modelView
 function modelView() {
