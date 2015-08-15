@@ -71,11 +71,12 @@ var Marker = function(data, map, infoWindow) {
             lat: this.lat,
             lng: this.lng
         },
-        map: map
+        map: map,
+        id: data.id
     })
-    google.maps.event.addListener(this.marker, 'click', (function() {
-        infoWindow.open(map, this);
-    }));
+    google.maps.event.addListener(this.marker, 'click', function() {
+        return openInfo(infoWindow, map, this);
+    });
 };
 
 
@@ -106,6 +107,16 @@ var isIn = function(item, array) {
     }
     return false;
 }
+
+// open infowindow
+var openInfo = function(infoWindow, map, marker) {
+    infoWindow.open(map, marker);
+}
+
+// get location infomation for infoWindow from foursquare
+var getInfo = function(id) {
+
+};
 
 //modelView
 function modelView() {
