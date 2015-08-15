@@ -153,7 +153,10 @@ function modelView() {
     });
 
     //operations
-
+    nameClicked = function() {
+        console.log(this);
+        return markerClicked(infoWindow, map, this.marker);
+    }
 
 
 }
