@@ -75,7 +75,7 @@ var Marker = function(data, map, infoWindow) {
         id: data.id
     })
     google.maps.event.addListener(this.marker, 'click', function() {
-        return openInfo(infoWindow, map, this);
+        return markerClicked(infoWindow, map, this);
     });
 };
 
@@ -108,13 +108,19 @@ var isIn = function(item, array) {
     return false;
 }
 
-// open infowindow
-var openInfo = function(infoWindow, map, marker) {
-    infoWindow.open(map, marker);
+// marker clicked
+var markerClicked = function(infoWindow, map, marker) {
+    var apiURL = 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M&client_secret=UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO&v=20150815';
+    $.getJSON(apiURL, function(result) {
+        var venueInfo = result.response.venue;
+        infoWindow.setContent(venueInfo.name);
+        infoWindow.open(map, marker);
+    });
 }
 
 // get location infomation for infoWindow from foursquare
 var getInfo = function(id) {
+
 
 };
 
