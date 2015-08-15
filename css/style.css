@@ -1,8 +1,32 @@
-
+body {
+  margin: auto;
+}
+.header {
+  text-align: center;
+  height: 100px;
+}
+.row {
+  width: 100%;
+  flex-wrap: nowrap;
+}
 #map {
+  margin: auto;
+  position: absolute;
+  width: 100%;
   height: 400px;
 }
-
+.searching {
+  width: 24%;
+  position: absolute;
+}
 #searchBar {
   height: 50px;
+}
+
+td {
+  background-color: white;
+}
+td:hover {
+  font-size: 1.2em;
+  background-color: yellow;
 }

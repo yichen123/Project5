@@ -14,25 +14,27 @@
 </head>
 
 <body>
-  <div id="map">
+  <div class="header">
+    <h1>HotPot Recommandation -- New York</h1>
+    <h4>Some FourSquare high score hotpot restaurants in NYC</h4>
+  </div>
+  <div class="row">
+    <div id="map">
+    </div>
+    <div class="searching">
+      <div id="searchBar">
+        <input data-bind="textInput: searchInfo" placeholder="Search"/>
+        <table id="searchResult">
+          <tbody data-bind="foreach: searchResult">
+            <tr>
+              <td data-bind="text: $data.name, click: nameClicked"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
-  <div id="searchBar">
-  <p>Search: <input data-bind="textInput: searchInfo" /></p>
-  </div>
-
-  <div class="row-3">
-    <table id="searchResult">
-      <tbody data-bind="foreach: searchResult">
-        <tr>
-          <td data-bind="text: $data.name, click: nameClicked"></td>
-        </tr>
-      </tbody>
-
-    </table>
-
-
-  </div>
 
 </body>
 

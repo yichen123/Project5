@@ -119,9 +119,7 @@ var markerClicked = function(infoWindow, map, marker) {
     // update InfoWindow with selected marker
     $.getJSON(apiURL, function(result) {
         var venueInfo = result.response.venue;
-        console.log(venueInfo);
-        var content = '<div id=\'InfoWindow\'><h3>' + venueInfo.name + '</h3><h2 style=\'color:#' + venueInfo.ratingColor + '\'>' + venueInfo.rating + '</h2><p>ADDRESS: ' + venueInfo.location.formattedAddress[0] + '.</p> <p>CONTACT: ' + venueInfo.contact.formattedPhone + '.</p></div>';
-        console.log(content);
+        var content = '<div id=\'InfoWindow\'><h3>' + venueInfo.name + '</h3><h4 style=\'color:#' + venueInfo.ratingColor + '\'>' + 'FourSquare Score: ' + venueInfo.rating + '</h4><p>ADDRESS: ' + venueInfo.location.formattedAddress[0] + '.</p> <p>CONTACT: ' + venueInfo.contact.formattedPhone + '.</p></div>';
         infoWindow.setContent(content);
         infoWindow.open(map, marker);
     });
@@ -135,7 +133,6 @@ function modelView() {
     var map = init();
     var infoWindow = initInfoWindow();
     initMarker(map, infoWindow);
-    console.log(infoWindow);
     self.searchInfo = ko.observable(); // input search words
 
     // save and update the page with the searched result
@@ -154,7 +151,6 @@ function modelView() {
 
     //operations
     nameClicked = function() {
-        console.log(this);
         return markerClicked(infoWindow, map, this.marker);
     }
 
