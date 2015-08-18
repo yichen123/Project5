@@ -88,7 +88,7 @@ var Marker = function(data, map, infoWindow) {
 // helper functions
 // return a list of stores that contains the keyword
 var filter = function(keyword) {
-    if (keyword === '' || keyword === null) {
+    if (keyword == '' || keyword == null) {
         return markers;
     }
     else {
@@ -147,7 +147,7 @@ function modelView() {
     });
 
     //operations
-    function nameClicked() {
+    self.nameClicked = function(){
         return markerClicked(infoWindow, map, this.marker);
     }
 }
@@ -176,4 +176,4 @@ function initMarker(map, infoWindow) {
 
 
 //google.maps.event.addDomListener(window, 'load', fsInit);
-ko.applyBindings(new modelView());
+ko.applyBindings(new modelView);

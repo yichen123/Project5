@@ -27,7 +27,7 @@
         <table id="searchResult">
           <tbody data-bind="foreach: searchResult">
             <tr>
-              <td data-bind="text: $data.name, click: nameClicked"></td>
+              <td data-bind="text: $data.name, click: $parent.nameClicked"></td>
             </tr>
           </tbody>
         </table>
