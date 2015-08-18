@@ -1,3 +1,4 @@
+use strike;
 // data
 // map info
 var initialStatus = {
@@ -17,7 +18,7 @@ var apiData = {
     clientID: 'CE2VKST0IIJ11AELGRTJBBWIFXJXVMWTPE0RW1AXPTWJN22M',
     clientSecret: 'UAJNPU23B3TPFUBPFLOYECCQPSAS3CPPOMLQXK5EHRBITHAO',
     apiVersion: '20150815'
-}
+};
 // restuants info
 var stores = [{
     name: 'Hakata Ton Ton',
@@ -78,17 +79,16 @@ var Marker = function(data, map, infoWindow) {
         },
         map: map,
         id: data.id
-    })
+    });
     google.maps.event.addListener(this.marker, 'click', function() {
         return markerClicked(infoWindow, map, this);
     });
 };
 
-
 // helper functions
 // return a list of stores that contains the keyword
 var filter = function(keyword) {
-    if (keyword == '' || keyword == null) {
+    if (keyword === '' || keyword === null) {
         return markers;
     }
     else {
@@ -102,7 +102,7 @@ var filter = function(keyword) {
         }
         return list;
     }
-}
+};
 // return if the item is in array
 var isIn = function(item, array) {
     for (var i = 0, len = array.length; i < len; i++) {
@@ -111,8 +111,7 @@ var isIn = function(item, array) {
         }
     }
     return false;
-}
-
+};
 // marker clicked
 var markerClicked = function(infoWindow, map, marker) {
     var apiURL = apiData.foursquareURL + marker.id + '?client_id=' + apiData.clientID + '&client_secret=' + apiData.clientSecret + '&v=' + apiData.apiVersion;
@@ -123,9 +122,7 @@ var markerClicked = function(infoWindow, map, marker) {
         infoWindow.setContent(content);
         infoWindow.open(map, marker);
     });
-}
-
-
+};
 
 //modelView
 function modelView() {
@@ -152,9 +149,7 @@ function modelView() {
     //operations
     nameClicked = function() {
         return markerClicked(infoWindow, map, this.marker);
-    }
-
-
+    };
 }
 
 // initialize google map
@@ -167,7 +162,7 @@ function init() {
 function initInfoWindow() {
     var info = new google.maps.InfoWindow({
         content: 'hi!'
-    })
+    });
     return info;
 }
 // initialize markers for model
@@ -181,4 +176,4 @@ function initMarker(map, infoWindow) {
 
 
 //google.maps.event.addDomListener(window, 'load', fsInit);
-ko.applyBindings(new modelView);
+ko.applyBindings(new modelView());
