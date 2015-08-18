@@ -1,4 +1,4 @@
-use strike;
+"use strict";
 // data
 // map info
 var initialStatus = {
@@ -95,7 +95,7 @@ var filter = function(keyword) {
         var list = [];
         var lowerCaseKeyword = keyword.toLowerCase();
         for (var i = 0, len = markers.length; i < len; i ++) {
-            lowerCaseName = markers[i].name.toLowerCase();
+            var lowerCaseName = markers[i].name.toLowerCase();
             if(lowerCaseName.search(lowerCaseKeyword) != -1) {
                 list.push(markers[i]);
             }
@@ -147,9 +147,9 @@ function modelView() {
     });
 
     //operations
-    nameClicked = function() {
+    function nameClicked() {
         return markerClicked(infoWindow, map, this.marker);
-    };
+    }
 }
 
 // initialize google map
