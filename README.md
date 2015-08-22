@@ -6,4 +6,10 @@ This site provide some high score HotPot restaurants that rated by FourSquare in
 ## Builds
 This website using knockout.js for the interaction part, and using FourSquare's api for more detailed data.
 
-## Open index.html to user
+## Open index.html to use
+## click search icon to open search menu
+
+
+todo
+- marker styel
+- ajax callback
