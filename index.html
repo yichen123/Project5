@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link href="css/style.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript" src="js/lib/knockout-3.3.0.js"></script>
@@ -13,18 +13,20 @@
   <script async type="text/javascript" src="js/app.js"></script>
 </head>
 
-<body>
+<body class="searching-hidden">
   <div class="header">
     <h1>HotPot Recommandation -- New York</h1>
-    <h4>Some FourSquare high score hotpot restaurants in NYC</h4>
   </div>
   <div class="row">
-    <div id="map">
+    <label for="search" class="searchButton" data-bind="click: searchButtonClicked">
+      <img  class="searchIcon" src="img/searchIcon.png">
+    </label>
+    <div id="map" class="map">
     </div>
     <div class="searching">
-      <div id="searchBar">
+      <div id="searchBar" class="searchBar">
         <input data-bind="textInput: searchInfo" placeholder="Search"/>
-        <table id="searchResult">
+        <table id="searchResult" class="searchResult">
           <tbody data-bind="foreach: searchResult">
             <tr>
               <td data-bind="text: $data.name, click: $parent.nameClicked"></td>

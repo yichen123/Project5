@@ -1,4 +1,6 @@
+// using strict mode is suggestted, but resulting several syntax error with JShint, do not how to fix such errors.
 "use strict";
+
 // data
 // map info
 var initialStatus = {
@@ -89,6 +91,7 @@ var Marker = function(data, map, infoWindow) {
 // return a list of stores that contains the keyword
 var filter = function(keyword) {
     if (keyword == '' || keyword == null) {
+    // JShint indicate this line has syntax error that should be === istead of ==, but using === resulting empty input does not trigger true condition, dont know how to fix that.
         return markers;
     }
     else {
@@ -114,6 +117,9 @@ var isIn = function(item, array) {
 };
 // marker clicked
 var markerClicked = function(infoWindow, map, marker) {
+    if ($('body').attr('class') === '') {
+        $('body').toggleClass('searching-hidden');
+    }
     var apiURL = apiData.foursquareURL + marker.id + '?client_id=' + apiData.clientID + '&client_secret=' + apiData.clientSecret + '&v=' + apiData.apiVersion;
     // update InfoWindow with selected marker
     $.getJSON(apiURL, function(result) {
@@ -147,9 +153,14 @@ function modelView() {
     });
 
     //operations
-    self.nameClicked = function(){
+    self.nameClicked = function() {
+        $('body').toggleClass('searching-hidden');
         return markerClicked(infoWindow, map, this.marker);
-    }
+    };
+
+    self.searchButtonClicked = function() {
+        $('body').toggleClass('searching-hidden');
+    };
 }
 
 // initialize google map
