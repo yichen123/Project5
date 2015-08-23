@@ -121,13 +121,25 @@ var markerClicked = function(infoWindow, map, marker) {
         $('body').toggleClass('searching-hidden');
     }
     var apiURL = apiData.foursquareURL + marker.id + '?client_id=' + apiData.clientID + '&client_secret=' + apiData.clientSecret + '&v=' + apiData.apiVersion;
-    // update InfoWindow with selected marker
-    $.getJSON(apiURL, function(result) {
-        var venueInfo = result.response.venue;
-        var content = '<div id=\'InfoWindow\'><h3>' + venueInfo.name + '</h3><h4 style=\'color:#' + venueInfo.ratingColor + '\'>' + 'FourSquare Score: ' + venueInfo.rating + '</h4><p>ADDRESS: ' + venueInfo.location.formattedAddress[0] + '.</p> <p>CONTACT: ' + venueInfo.contact.formattedPhone + '.</p></div>';
-        infoWindow.setContent(content);
-        infoWindow.open(map, marker);
+    // update InfoWindow with ajax()
+    $.ajax({
+        'url': apiURL,
+        'type': 'get',
+        'timeout': 5000,
+        'dataType': 'json',
+        'success': function(result) {
+            var venueInfo = result.response.venue;
+            var content = '<div id=\'InfoWindow\'><h3>' + venueInfo.name + '</h3><h4 style=\'color:#' + venueInfo.ratingColor + '\'>' + 'FourSquare Score: ' + venueInfo.rating + '</h4><p>ADDRESS: ' + venueInfo.location.formattedAddress[0] + '.</p> <p>CONTACT: ' + venueInfo.contact.formattedPhone + '.</p></div>';
+            infoWindow.setContent(content);
+            infoWindow.open(map, marker);
+        },
+        'error': function() {
+            var content = '<p>ERROR: Unable to retrive data from FourSquare</p>';
+            infoWindow.setContent(content);
+            infoWindow.open(map, marker);
+        }
     });
+
 };
 
 //modelView

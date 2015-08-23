@@ -12,4 +12,3 @@ This website using knockout.js for the interaction part, and using FourSquare's 
 
 todo
 - marker styel
-- ajax callback
