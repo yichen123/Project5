@@ -10,5 +10,4 @@ This website using knockout.js for the interaction part, and using FourSquare's 
 ## click search icon to open search menu
 
 
-todo
-- marker styel
+todo-list

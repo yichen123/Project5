@@ -195,9 +195,7 @@ function init() {
 
 // initialize infoWindow
 function initInfoWindow() {
-    var info = new google.maps.InfoWindow({
-        content: 'hi!'
-    });
+    var info = new google.maps.InfoWindow();
     return info;
 }
 // initialize markers for model
@@ -207,8 +205,6 @@ function initMarker(map, infoWindow) {
         markers.push(marker);
     }
 }
-
-
 
 //google.maps.event.addDomListener(window, 'load', fsInit);
 ko.applyBindings(new modelView);

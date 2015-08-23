@@ -19,7 +19,7 @@
   </header>
   <div class="menu">
     <label for="search" class="searchButton" data-bind="click: searchButtonClicked">
-      <img  class="searchIcon" src="img/searchIcon.png">
+      <img class="searchIcon" src="img/searchIcon.png">
     </label>
     <p>- - -Written by Chen YI</p>
   </div>
@@ -27,9 +27,9 @@
     <div id="map" class="map">
     </div>
     <div class="searching">
-      <div id="searchBar" class="searchBar">
-        <input data-bind="textInput: searchInfo" placeholder="Search"/>
-        <table id="searchResult" class="searchResult">
+      <div class="searchBar">
+        <input data-bind="textInput: searchInfo" placeholder="Search" />
+        <table class="searchResult">
           <tbody data-bind="foreach: searchResult">
             <tr>
               <td data-bind="text: $data.name, click: $parent.nameClicked"></td>
