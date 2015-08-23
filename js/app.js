@@ -80,8 +80,9 @@ var Marker = function(data, map, infoWindow) {
             lng: this.lng
         },
         map: map,
-        id: data.id
+        id: data.id,
     });
+    this.marker.setAnimation(null);
     google.maps.event.addListener(this.marker, 'click', function() {
         return markerClicked(infoWindow, map, this);
     });
@@ -91,15 +92,14 @@ var Marker = function(data, map, infoWindow) {
 // return a list of stores that contains the keyword
 var filter = function(keyword) {
     if (keyword == '' || keyword == null) {
-    // JShint indicate this line has syntax error that should be === istead of ==, but using === resulting empty input does not trigger true condition, dont know how to fix that.
+        // JShint indicate this line has syntax error that should be === istead of ==, but using === resulting empty input does not trigger true condition, dont know how to fix that.
         return markers;
-    }
-    else {
+    } else {
         var list = [];
         var lowerCaseKeyword = keyword.toLowerCase();
-        for (var i = 0, len = markers.length; i < len; i ++) {
+        for (var i = 0, len = markers.length; i < len; i++) {
             var lowerCaseName = markers[i].name.toLowerCase();
-            if(lowerCaseName.search(lowerCaseKeyword) != -1) {
+            if (lowerCaseName.search(lowerCaseKeyword) != -1) {
                 list.push(markers[i]);
             }
         }
@@ -115,11 +115,23 @@ var isIn = function(item, array) {
     }
     return false;
 };
+
+var triggerAnimation = function(marker) {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        for (var i = 0, len = markers.length; i < len; i++) {
+            markers[i].marker.setAnimation(null);
+        }
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+};
 // marker clicked
 var markerClicked = function(infoWindow, map, marker) {
     if ($('body').attr('class') === '') {
         $('body').toggleClass('searching-hidden');
     }
+    triggerAnimation(marker);
     var apiURL = apiData.foursquareURL + marker.id + '?client_id=' + apiData.clientID + '&client_secret=' + apiData.clientSecret + '&v=' + apiData.apiVersion;
     // update InfoWindow with ajax()
     $.ajax({
@@ -153,7 +165,7 @@ function modelView() {
     // save and update the page with the searched result
     self.searchResult = ko.computed(function() {
         var result = filter(self.searchInfo());
-        for(var i = 0, len1 = markers.length; i < len1; i++) {
+        for (var i = 0, len1 = markers.length; i < len1; i++) {
             // add marker[i] to the map if markers[i] is in searched result, or remove it from the map otherwise
             if (isIn(markers[i], result)) {
                 markers[i].marker.setMap(map);
