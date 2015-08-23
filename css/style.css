@@ -1,17 +1,20 @@
 body {
   margin: auto;
+  color: lightblue;
 }
 header {
   max-width: 800px;
   margin: auto;
 }
 header h1 {
+  color: darkgreen;
   text-align: center;
 }
 .menu {
   width: 100%;
   max-width: 800px;
   margin: auto;
+  background-color: gold;
 }
 .menu p {
   margin: 0.5em;
@@ -19,7 +22,9 @@ header h1 {
 }
 .menu .searchIcon {
   width: 10%;
-  max-width: 25px;
+  max-width: 20px;
+  padding: 0.2em;
+  margin: auto;
 }
 .row {
   width: 100%;
@@ -30,6 +35,12 @@ header h1 {
   position: absolute;
   width: 100%;
   height: 400px;
+}
+.infoWindow {
+  font-size: 1.2em;
+}
+.infoWindow h2 {
+  color: black;
 }
 
 .searching {
@@ -42,25 +53,20 @@ header h1 {
   transform: translate3d(-12em, 0, 0);
   transition: transform 0.2s;
 }
-.searchBar {
-  height: 50px;
-  width: 40%;
+
+.searching tr {
+  width: 40px;
 }
 .searching td {
   background-color: white;
-  width: 40%;
 }
 .searching td:hover {
   font-size: 1.2em;
-  background-color: yellow;
+  color: black;
 }
 
 @media only screen and (max-width: 600px) {
   header {
     font-size: 0.75em;
   }
-  .map {
-    font-size: 1.2em;
-  }
-
 }
